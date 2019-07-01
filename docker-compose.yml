@@ -1,0 +1,25 @@
+version: '3'
+services:
+  simple-chat-app:
+    build: 
+      context: ./
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - "80:80"
+    environment:
+      REDIS_HOST: '192.168.33.203'
+    volumes:
+      - ./log:/var/log/simple-chat
+    command: 'python app.py'
+    restart: always
+  simple-chat-subscribe:
+    build: 
+      context: ./
+      dockerfile: ./docker/Dockerfile
+    environment:
+      APP_HOST: simple-chat-app
+      REDIS_HOST: '192.168.33.203'
+    volumes:
+      - ./log:/var/log/simple-chat
+    command: 'python subscribe.py'
+    restart: always

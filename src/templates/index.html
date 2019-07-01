@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Chat</title>
+    <style type="text/css">
+        #message {
+            border: solid 1px black;
+            margin: 10px;
+            height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Chat by app1</h1>
+    <div id="message">
+    </div>
+    <div>
+        名前：
+        <input id="name" type="text" size="10">
+        本文：
+        <input id="content" type="text" size="50">
+        <input id="submit" type="button" value="送信" onclick="clickSubmit()">
+    </div>
+    <script>
+    let websocket;
+    window.addEventListener("load",
+        function (event) {
+            let protocol = "ws";
+            if (location.protocol == "https:") {
+                protocol = "wss";
+            }
+            let hostname = window.location.hostname;
+            let port = window.location.port;
+            websocket = new WebSocket(protocol + "://" + hostname + ":" + port + "/ws");
+            websocket.onopen = function() {
+                console.log("WebSocket opened")
+            };
+            websocket.onmessage = function (ev) {
+                data = ev.data;
+                console.log("WebSocket received message")
+                console.log(data)
+                let messageArray = JSON.parse(ev.data);
+                let time = messageArray["time"];
+                let name = messageArray["name"];
+                let content = messageArray["content"];
+
+                let messageBox = document.getElementById("message");
+                let message = document.createElement("p");
+                message.textContent = "[" + time + "] " + name + ": " + content;
+                messageBox.appendChild(message);
+                messageBox.scrollTop = messageBox.scrollHeight;
+            };
+            websocket.onclose = function() {
+                console.log("WebSocket closed")
+            };
+            
+        }
+    , false);
+    function clickSubmit() {
+        let name = document.getElementById("name").value;
+        let content = document.getElementById("content").value;
+        let messageArray = {
+            "name": name,
+            "content": content
+        }
+        let message = JSON.stringify(messageArray);
+        websocket.send(message);
+        console.log("WebSocket sent message")
+        console.log(message)
+    }
+    </script>
+</body>
+</html>
