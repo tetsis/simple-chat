@@ -16,18 +16,12 @@ get_redis_endpoint()
                   --output text)
 }
 
-set_environment_variables()
+set_redis_endpoint()
 {
-    echo "export REDIS_ENDPOINT=${redis_endpoint}"
+    sed -i -e "s/REDIS_HOST.*$/REDIS_HOST: '${redis_endpoint}'/g" docker-compose.yml
 }
 
 ${logger} "start $0"
-
-get_instance_id
-get_redis_endpoint
-
-${logger} "set environment"
-set_environment_variables
 
 ${logger} "install docker and docker-compose"
 yum -y install docker
@@ -37,9 +31,17 @@ curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compo
 chmod +x /usr/local/bin/docker-compose
 
 ${logger} "install app"
+yum -y install git
 cd ~
 git clone https://github.com/tetsis/simple-chat.git
 cd simple-chat
+
+${logger} "get info"
+get_instance_id
+get_redis_endpoint
+
+${logger} "set environment"
+set_redis_endpoint
 
 ${logger} "run app"
 docker-compose up -d
