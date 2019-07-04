@@ -22,25 +22,14 @@ set_redis_endpoint()
 }
 
 ${logger} "start $0"
-
-${logger} "install docker and docker-compose"
-yum -y install docker
-systemctl start docker
-systemctl enable docker
-curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
-
-${logger} "install app"
-yum -y install git
-cd ~
-git clone https://github.com/tetsis/simple-chat.git
-cd simple-chat
+sleep 60
 
 ${logger} "get info"
 get_instance_id
 get_redis_endpoint
 
 ${logger} "set environment"
+cd /root/simple-chat
 set_redis_endpoint
 
 ${logger} "run app"

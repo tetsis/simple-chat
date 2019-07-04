@@ -1,6 +1,6 @@
 #AWS Settings
-access_key = "xxxx"
-secret_key = "xxxx"
+#access_key = "xxxx"
+#secret_key = "xxxx"
 region = "ap-northeast-1"
 
 #App Name
@@ -20,10 +20,10 @@ private_segment1_az = "ap-northeast-1a"
 private_segment2_az = "ap-northeast-1c"
 
 #Security Group Settings
-ssh_allow_ip = "x.x.x.x/32"
+#ssh_allow_ip = "x.x.x.x/32"
 
 #KeyPair Settings
-my_public_key = "xxxx"
+#my_public_key = "xxxx"
 
-# EC2 Settings
-ami = "ami-xxxx"
+#EC2 Settings
+#ami = "ami-xxxx"

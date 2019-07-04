@@ -1,0 +1,39 @@
+{
+    "variables": {
+        "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+        "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+        "region":         "ap-northeast-1"
+    },
+    "builders": [
+        {
+            "access_key": "{{user `aws_access_key`}}",
+            "ami_name": "packer-linux-aws-demo-{{timestamp}}",
+            "instance_type": "t2.micro",
+            "region": "{{user `region`}}",
+            "secret_key": "{{user `aws_secret_key`}}",
+            "source_ami_filter": {
+              "filters": {
+                  "name": "amzn2-ami-hvm-*-x86_64-gp2"
+              },
+              "owners": ["137112412989"],
+              "most_recent": true
+            },
+            "ssh_username": "ec2-user",
+            "type": "amazon-ebs"
+        }
+    ],
+    "provisioners": [{
+        "type": "shell",
+        "inline": [
+            "sleep 30",
+            "sudo yum -y install docker git",
+            "sudo systemctl start docker",
+            "sudo systemctl enable docker",
+            "sudo curl -L \"https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)\" -o /usr/local/bin/docker-compose",
+            "sudo chmod +x /usr/local/bin/docker-compose",
+            "git clone https://github.com/tetsis/simple-chat.git",
+            "sudo cp -r simple-chat /root/",
+            "sudo /usr/local/bin/docker-compose -f /root/simple-chat/docker-compose.yml build"
+        ]
+    }]
+}
