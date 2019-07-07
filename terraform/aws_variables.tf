@@ -21,3 +21,4 @@ variable "my_public_key" {}
 
 variable "ami" {}
 
+variable "certificate_arn" {}

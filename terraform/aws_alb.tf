@@ -17,7 +17,7 @@ resource "aws_alb_listener" "alb" {
     port              = "443"
     protocol          = "HTTPS"
     ssl_policy        = "ELBSecurityPolicy-2016-08"
-    certificate_arn   = "arn:aws:acm:ap-northeast-1:054634582460:certificate/eeb04c3c-9eaa-40a8-9bce-4ad0c3ace9ae"
+    certificate_arn   = var.certificate_arn
 
     default_action {
       target_group_arn = aws_lb_target_group.target_group_app_main.arn

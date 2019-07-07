@@ -36,7 +36,6 @@ class InternalHandler(tornado.web.RequestHandler):
     def post(self):
         logger.info('Internal is posted message: ' + self.request.body.decode('utf-8'))
         data = json.loads(self.request.body.decode('utf-8'))
-        data['content'] += ' from app1'
 
         for user in websocket_list:
             user.write_message(json.dumps(data))
