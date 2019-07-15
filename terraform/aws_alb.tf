@@ -17,14 +17,10 @@ resource "aws_alb_listener" "alb" {
     port              = "443"
     protocol          = "HTTPS"
     ssl_policy        = "ELBSecurityPolicy-2016-08"
-    certificate_arn   = var.certificate_arn
+    certificate_arn   = aws_acm_certificate_validation.cert.certificate_arn
 
     default_action {
       target_group_arn = aws_lb_target_group.target_group_app_main.arn
       type             = "forward"
     }
-}
-
-output "alb_dns" {
-  value = aws_alb.app_alb.dns_name
 }

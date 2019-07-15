@@ -4,6 +4,8 @@ variable "region" {}
 
 variable "app_name" {}
 
+variable "app_fqdn" {}
+
 variable "root_segment" {}
 variable "public_segment1" {}
 variable "public_segment2" {}
@@ -21,4 +23,4 @@ variable "my_public_key" {}
 
 variable "ami" {}
 
-variable "certificate_arn" {}
+variable "zone_id" {}

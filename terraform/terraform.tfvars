@@ -5,6 +5,7 @@ region = "ap-northeast-1"
 
 #App Name
 app_name = "simple-chat"
+#app_fqdn = "simple-chat.xxxx.com"
 
 #Segment Settings
 root_segment = "10.0.0.0/16"
@@ -28,5 +29,5 @@ private_segment2_az = "ap-northeast-1c"
 #EC2 Settings
 #ami = "ami-xxxx"
 
-#Certificate
-#certificate_arn = "arn:aws:acm:ap-northeast-1:xxxx:xxxx"
+# Route 53 Settings
+#zone_id = "xxxx"
