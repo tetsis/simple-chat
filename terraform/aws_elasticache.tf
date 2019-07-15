@@ -2,7 +2,7 @@ resource "aws_elasticache_replication_group" "elasticache_main" {
   automatic_failover_enabled    = false
   availability_zones            = [var.private_segment1_az]
   replication_group_id          = "elasticache"
-  replication_group_description = "${var.app_name}"
+  replication_group_description = "${var.app_name} replica group"
   node_type                     = "cache.t2.micro"
   number_cache_clusters         = 1
   parameter_group_name          = "default.redis5.0"

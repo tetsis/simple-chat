@@ -21,7 +21,7 @@ private_segment1_az = "ap-northeast-1a"
 private_segment2_az = "ap-northeast-1c"
 
 #Security Group Settings
-#ssh_allow_ip = "x.x.x.x/32"
+#allow_ip = "x.x.x.x/32"
 
 #KeyPair Settings
 #my_public_key = "xxxx"

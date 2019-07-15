@@ -17,7 +17,7 @@ variable "public_segment2_az" {}
 variable "private_segment1_az" {}
 variable "private_segment2_az" {}
 
-variable "ssh_allow_ip" {}
+variable "allow_ip" {}
 
 variable "my_public_key" {}
 
